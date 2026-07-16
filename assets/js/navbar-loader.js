@@ -1,0 +1,328 @@
+/**
+ * EnCarbonSys Global Navbar Loader
+ * Injects the canonical premium navbar from index.html into any page.
+ * Usage: add <div id="navbar-placeholder"></div> and <script src="/assets/js/navbar-loader.js"></script>
+ */
+(function () {
+    const NAV_CSS = `
+<style id="encarbonsys-navbar-css">
+    :root {
+        --cosmic-green: #00df81;
+        --dark-cosmic: #0a1a0f;
+        --cosmic-glow: rgba(0, 223, 129, 0.3);
+    }
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        backdrop-filter: blur(15px);
+        background: rgba(10, 26, 15, 0.9);
+        border-bottom: 0.5px solid rgba(39, 227, 139, 0.75);
+        padding: 0.5rem 0;
+        transition: all 0.3s ease;
+    }
+    .nav-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .logo {
+        font-size: 1.6rem;
+        font-weight: 750;
+        color: white;
+        text-decoration: none;
+        background: linear-gradient(135deg, #00ff88 0%, #34d399 100%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        filter: drop-shadow(0 0 0 transparent);
+    }
+    .logo img {
+        height: 48px;
+        transition: all 0.3s ease;
+    }
+    .logo:hover {
+        filter: drop-shadow(0 0 12px rgba(0, 223, 129, 0.6));
+    }
+    .logo:hover img {
+        transform: scale(1.05);
+        filter: brightness(1.2);
+    }
+    .nav-links {
+        display: flex;
+        gap: 1.3rem;
+        list-style: none;
+        align-items: center;
+    }
+    .nav-links a {
+        color: rgba(255, 255, 255, 0.95);
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
+        font-size: 0.83rem;
+        letter-spacing: 0.5px;
+    }
+    .nav-links a::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #88ff99;
+        transition: width 0.3s ease;
+        border-radius: 2px;
+    }
+    .nav-links a:hover {
+        color: #88ff99;
+        text-shadow: 0 0 12px rgba(117, 244, 136, 0.7);
+    }
+    .nav-links a:hover::after {
+        width: 100%;
+    }
+    .dropdown {
+        position: relative;
+    }
+    .dropdown-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        cursor: pointer;
+    }
+    .dropdown-toggle i {
+        transition: transform 0.3s ease;
+    }
+    .dropdown.active .dropdown-toggle i {
+        transform: rotate(180deg);
+    }
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+        background: rgba(10, 26, 15, 0.98);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(0, 255, 136, 0.2);
+        border-radius: 8px;
+        padding: 0.5rem 0;
+        min-width: 220px;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        margin-top: 0.5rem;
+    }
+    .dropdown.active .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(-50%) translateY(0);
+    }
+    .dropdown-menu a {
+        display: block;
+        padding: 0.75rem 1.5rem;
+        color: rgba(255, 255, 255, 0.9);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+    }
+    .dropdown-menu a:hover {
+        background: rgba(0, 255, 136, 0.1);
+        color: #00ff88;
+        padding-left: 1.75rem;
+    }
+    
+    /* Desktop Hover Support */
+    @media (min-width: 769px) {
+        .dropdown:hover .dropdown-menu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+    .nav-login {
+        color: rgba(255, 255, 255, 0.85) !important;
+        padding: 0.45rem 1.8rem;
+        font-size: 0.83rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(136, 255, 153, 0.3);
+        border-radius: 8px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        background: rgba(136, 255, 153, 0.04);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .nav-login:hover {
+        background: rgba(136, 255, 153, 0.08);
+        border-color: rgba(136, 255, 153, 0.6);
+        color: #88ff99 !important;
+        transform: translateY(-1px);
+        text-shadow: 0 0 10px rgba(136, 255, 153, 0.3);
+    }
+    .nav-cta {
+        background: #88ff99 !important;
+        color: #000000 !important;
+        padding: 0.48rem 1.4rem !important;
+        border-radius: 8px !important;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        font-size: 0.83rem;
+        box-shadow: 0 0 18px rgba(136, 255, 153, 0.25), 0 2px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(136, 255, 153, 0.5) !important;
+        white-space: nowrap;
+        letter-spacing: 0.3px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 28px rgba(136, 255, 153, 0.5), 0 6px 20px rgba(0, 0, 0, 0.3);
+        background: #aaffbb !important;
+        color: #000000 !important;
+    }
+    .mobile-menu-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+    }
+    @media (max-width: 768px) {
+        .nav-links {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            right: 0;
+            background: rgba(10, 26, 15, 0.98);
+            flex-direction: column;
+            padding: 2rem;
+            gap: 1rem;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+            max-height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+        .nav-links.active {
+            display: flex;
+        }
+        .mobile-menu-btn {
+            display: block;
+        }
+        .nav-cta-group {
+            flex-direction: column;
+            width: 100%;
+            gap: 1rem;
+            margin-left: 0 !important;
+        }
+        .nav-login, .nav-cta {
+            width: 100%;
+            text-align: center;
+            padding: 0.9rem !important;
+        }
+        .dropdown { width: 100%; }
+        .dropdown-toggle { justify-content: center; }
+        .dropdown-menu { position: static; transform: none; width: 100%; opacity: 1; visibility: visible; display: none; background: rgba(0,0,0,0.2); }
+        .dropdown.active .dropdown-menu { display: block; }
+    }
+</style>`;
+
+    const NAV_HTML = `
+<nav class="navbar" id="encarbonsys-navbar">
+    <div class="nav-container">
+        <a href="/" class="logo">
+            <img src="https://image2url.com/images/1754762251826-aabbb9f2-5d26-42f3-b2a7-896ce713de40.png"
+                alt="EnCarbonSys Logo">
+            EnCarbonSys
+        </a>
+        <button class="mobile-menu-btn" id="encav-mobileBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="encav-navLinks">
+            <li><a href="/EnCBAM#problem">Problem</a></li>
+            <li><a href="/EnCBAM#solution">Solution</a></li>
+            <li><a href="/pages/pricing">Pricing</a></li>
+            <li class="dropdown" id="encav-toolsDropdown">
+                <a href="#" class="dropdown-toggle">
+                    Tools <i class="fas fa-chevron-down" style="font-size:0.7rem;"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="https://cbam-tools.encarbonsys.com">CN Code Checker</a></li>
+                    <li><a href="https://cbam-tools.encarbonsys.com/tools/emissions-calculator">Emissions Calculator</a></li>
+                    <li><a href="https://cbam-tools.encarbonsys.com/tools/cbam-cost-estimator">CBAM Cost Estimator</a></li>
+                </ul>
+            </li>
+            <li><a href="/cbam-blog/">Blog</a></li>
+            <li><a href="/EnCBAM#faq">FAQ</a></li>
+            <li class="nav-cta-group" style="display:flex;align-items:center;gap:1rem;margin-left:1rem;">
+                <a href="https://encbam.encarbonsys.com/login" class="nav-login">Login</a>
+                <a href="/EnCBAM#cta" class="nav-cta">Get Started</a>
+            </li>
+        </ul>
+    </div>
+</nav>`;
+
+    // Inject CSS into <head>
+    document.head.insertAdjacentHTML('beforeend', NAV_CSS);
+
+    // Inject navbar HTML
+    const placeholder = document.getElementById('navbar-placeholder');
+    if (placeholder) {
+        placeholder.outerHTML = NAV_HTML;
+    } else {
+        document.body.insertAdjacentHTML('afterbegin', NAV_HTML);
+    }
+
+    // Logic
+    function initNavbar() {
+        const mobileBtn = document.getElementById('encav-mobileBtn');
+        const navLinks = document.getElementById('encav-navLinks');
+        const toolsDrop = document.getElementById('encav-toolsDropdown');
+
+        if (mobileBtn && navLinks) {
+            mobileBtn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                navLinks.classList.toggle('active');
+            });
+        }
+
+        if (toolsDrop) {
+            toolsDrop.addEventListener('click', function (e) {
+                // Toggle on click for all devices (useful for touch and accessibility)
+                if (e.target.closest('.dropdown-toggle')) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.classList.toggle('active');
+                }
+            });
+        }
+
+        document.addEventListener('click', function (e) {
+            if (navLinks && navLinks.classList.contains('active') && !navLinks.contains(e.target) && e.target !== mobileBtn) {
+                navLinks.classList.remove('active');
+            }
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initNavbar);
+    } else {
+        initNavbar();
+    }
+})();
