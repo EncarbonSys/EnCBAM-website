@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5KSFR9S0QX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-5KSFR9S0QX');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | EnCBAM Managed Compliance</title>
+    <meta name="description"
+        content="EnCBAM pricing plans - Choose from Self-Service, Managed Reporting, or Compliance as a Service (CaaS). Flexible CBAM compliance solutions for every business size.">
+    <meta name="keywords"
+        content="CBAM pricing, EnCBAM cost, CBAM compliance cost, carbon border adjustment pricing, EU CBAM services">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="CBAM Compliance Pricing - EnCBAM">
+    <meta property="og:description"
+        content="Flexible CBAM compliance pricing for every business size. Self-Service, Managed, or CaaS plans.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://encarbonsys.com/pages/pricing">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/assets/css/toc-addition.css">
+    <style>
+        :root {
+            --forest: #0a1a0f;
+            --pine: #134d26;
+            --canopy: #1e7a3c;
+            --leaf: #2db354;
+            --mint: #7dd49a;
+            --gold: #c9a84c;
+            --glass: rgba(10, 26, 15, 0.7);
+            --glass-light: rgba(255, 255, 255, 0.05);
+            --text-main: #f0f4f1;
+            --text-muted: #a0bca5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--forest);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Premium Transitions */
+        .animate-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Header / Hero */
+        .pricing-header {
+            padding: 220px 0 100px;
+            text-align: center;
+            background: radial-gradient(circle at center top, rgba(45, 179, 84, 0.15), transparent 70%);
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(45, 179, 84, 0.1);
+            border: 1px solid rgba(45, 179, 84, 0.3);
+            color: var(--mint);
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-weight: 700;
+            color: white;
+            line-height: 1.0;
+            margin-bottom: 24px;
+            letter-spacing: -2px;
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--leaf);
+        }
+
+        .pricing-header p {
+            font-size: 20px;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* Pricing Grid */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .pricing-card {
+            background: var(--glass-light);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 40px;
+            padding: 56px 40px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            backdrop-filter: blur(10px);
+        }
+
+        .pricing-card:hover {
+            border-color: var(--leaf);
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(180deg, rgba(23, 77, 38, 0.2) 0%, rgba(10, 26, 15, 0.4) 100%);
+            border: 1px solid rgba(45, 179, 84, 0.4);
+        }
+
+        .badge-main {
+            position: absolute;
+            top: -16px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--leaf);
+            color: var(--forest);
+            padding: 6px 20px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(45, 179, 84, 0.4);
+        }
+
+        .tier-meta {
+            margin-bottom: 40px;
+        }
+
+        .tier-id {
+            color: var(--leaf);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .tier-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .tier-price {
+            font-size: 44px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+        }
+
+        .tier-price .currency {
+            font-size: 24px;
+            color: var(--mint);
+        }
+
+        .tier-price .period {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-left: 4px;
+        }
+
+        .tier-for {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            min-height: 40px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 48px;
+            flex: 1;
+        }
+
+        .feature-list li {
+            position: relative;
+            padding-left: 28px;
+            color: var(--text-main);
+            font-size: 14.5px;
+            margin-bottom: 16px;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--leaf);
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .btn-pricing {
+            width: 100%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 15px;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .featured .btn-pricing {
+            background: var(--leaf);
+            color: var(--forest);
+            border: none;
+        }
+
+        .btn-pricing:hover {
+            background: var(--leaf);
+            color: var(--forest);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(45, 179, 84, 0.4);
+        }
+
+        .msme-notice {
+            text-align: left;
+            color: var(--text-muted);
+            font-size: 16px;
+            margin: 32px 0 80px;
+            font-weight: 300;
+        }
+
+        .msme-notice strong {
+            color: var(--leaf);
+            font-weight: 600;
+        }
+
+        .msme-notice a {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            background: rgba(45, 179, 84, 0.1);
+            border: 1px solid rgba(45, 179, 84, 0.3);
+            color: var(--leaf);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-left: 8px;
+            transition: all 0.3s;
+        }
+
+        .msme-notice a:hover {
+            background: var(--leaf);
+            color: var(--forest);
+        }
+
+        /* Comparison Table Revamp */
+        .comparison-wrap {
+            background: var(--glass-light);
+            border-radius: 48px;
+            padding: 80px 60px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 120px;
+            overflow: hidden;
+        }
+
+        .comparison-wrap h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 48px;
+            color: white;
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        th {
+            text-align: left;
+            padding: 32px 24px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            background: rgba(45, 179, 84, 0.12);
+            border-bottom: 2px solid var(--leaf);
+            backdrop-filter: blur(10px);
+        }
+
+        tbody tr {
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(45, 179, 84, 0.05);
+        }
+
+        td {
+            padding: 24px;
+            color: var(--text-muted);
+            font-size: 15px;
+            font-weight: 400;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
+            transition: color 0.3s ease;
+        }
+
+        tbody tr:hover td {
+            color: #ffffff;
+        }
+
+        td:first-child {
+            font-weight: 600;
+            color: white;
+            width: 35%;
+            border-left: 3px solid transparent;
+            transition: border-left-color 0.3s ease;
+        }
+
+        tbody tr:hover td:first-child {
+            border-left-color: var(--leaf);
+        }
+
+        .check-icon {
+            color: var(--leaf);
+            font-size: 18px;
+        }
+
+        .minus-icon {
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 14px;
+        }
+
+        /* A-la-carte */
+        .addon-section {
+            background: linear-gradient(135deg, rgba(201, 168, 76, 0.05) 0%, rgba(10, 26, 15, 0.1) 100%);
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            padding: 80px;
+            border-radius: 48px;
+            margin-bottom: 120px;
+        }
+
+        .addon-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .addon-title {
+            font-family: 'Inter', sans-serif;
+            font-size: 44px;
+            color: white;
+            margin-bottom: 24px;
+            line-height: 1.1;
+        }
+
+        .addon-tag {
+            color: var(--gold);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 11px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .addon-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .addon-item:last-child {
+            border: none;
+        }
+
+        .addon-name {
+            color: white;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .addon-price {
+            color: var(--leaf);
+            font-weight: 800;
+            font-size: 16px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 100px 0 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 48px;
+            margin-bottom: 80px;
+        }
+
+        .footer-col h4 {
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 20px;
+            margin-bottom: 32px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--leaf);
+        }
+
+        .copy {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 1024px) {
+
+            .pricing-grid,
+            .addon-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            h1 {
+                font-size: clamp(2.5rem, 8vw, 4rem);
+            }
+
+            .addon-section {
+                padding: 40px 20px;
+            }
+
+            .pricing-card {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1.5rem;
+            }
+
+            .pricing-header {
+                padding: 100px 0 40px;
+                text-align: center;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 10vw, 3rem);
+                line-height: 1.1;
+                letter-spacing: -1px;
+            }
+
+            .pricing-header p {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .pricing-grid {
+                gap: 1.5rem;
+                margin-bottom: 4rem;
+            }
+
+            .pricing-card {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .tier-title {
+                font-size: 24px;
+            }
+
+            .tier-price {
+                font-size: 28px;
+                margin-bottom: 8px;
+            }
+
+            .tier-price .amount {
+                font-size: 1.2em;
+            }
+
+            /* Table Mobile Fix */
+            .comparison-wrap h2 {
+                font-size: 1.75rem;
+                margin-bottom: 2rem;
+                text-align: center;
+            }
+
+            .table-responsive {
+                margin: 0 -1.5rem;
+                padding: 0 1.5rem;
+                position: relative;
+            }
+
+            .table-responsive::after {
+                content: 'Scroll →';
+                position: absolute;
+                bottom: -20px;
+                right: 1.5rem;
+                font-size: 10px;
+                color: var(--leaf);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                opacity: 0.7;
+            }
+
+            table {
+                min-width: 700px;
+            }
+
+            th,
+            td {
+                padding: 1rem 0.75rem;
+                font-size: 13px;
+            }
+
+            .addon-title {
+                font-size: 1.75rem;
+                text-align: center;
+            }
+
+            .addon-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 0.5rem;
+                padding: 1.5rem 0;
+            }
+
+            .addon-name {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+    <script src="/assets/js/navbar-loader.js"></script>
+
+    <!-- WhatsApp Floating Widget -->
+    <link rel="stylesheet" href="/assets/css/whatsapp-widget.css">
+    <a href="https://wa.me/919620828005?text=Hi%20EnCarbonSys,%20I'd%20like%20to%20know%20more%20about%20your%20CBAM%20solutions."
+        class="whatsapp-widget" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+        <div class="whatsapp-content">
+            <i class="fab fa-whatsapp"></i>
+            <span class="whatsapp-tooltip">Chat with us</span>
+        </div>
+    </a>
+
+    <header class="pricing-header">
+        <div class="container">
+            <div class="section-tag animate-in">The Right Model Starts Here</div>
+            <h1 class="animate-in"><span style="color: var(--leaf);">CBAM</span> Compliance</h1>
+            <p class="animate-in" style="font-size:22px;font-weight:600;color:white;margin-bottom:12px;">Your Way, Your
+                Pace</p>
+            <p class="animate-in">EnCarbonSys offers three distinct service models — from self
+                service software to complete end-to-end compliance
+                management. Choose the level of support that fits your team,
+                your capacity, and your ambition.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Pricing Grid -->
+        <div class="pricing-grid">
+            <!-- Model 01 -->
+            <div class="pricing-card">
+                <div class="tier-meta">
+                    <span class="tier-id">Model 01</span>
+                    <h3 class="tier-title">EnCBAM™<br>Self-Service</h3>
+                    <div class="tier-price" data-base-inr="150000" data-period="/yr /factory">
+                        <span class="currency">₹</span><span class="amount">1,50,000</span><span class="period">/yr
+                            /factory</span>
+                    </div>
+                </div>
+                <p class="tier-for">Ideal for teams with dedicated staff who want expert-grade tooling to run compliance
+                    themselves.</p>
+                <ul class="feature-list">
+                    <li>Automated emissions calculation engine</li>
+                    <li>Downloadable CBAM compliant report Generation</li>
+                    <li>Structured data templates with built-in audit trails</li>
+                    <li>In-house Supplier Integration</li>
+                    <li>Track production, energy, and precursors in one system</li>
+                    <li>Monthly, quarterly, or annual reporting, no limits</li>
+                    <li>Secure AWS hosting</li>
+                    <li>Initial Onboarding + Technical Support</li>
+                </ul>
+                <a href="https://encbam.encarbonsys.com/login#create-account" class="btn-pricing">Start Your Free
+                    Trial</a>
+            </div>
+
+            <!-- Model 02 -->
+            <div class="pricing-card">
+                <div class="badge-main">Most Popular</div>
+                <div class="tier-meta">
+                    <span class="tier-id">Model 02</span>
+                    <h3 class="tier-title">Managed<br>Reporting</h3>
+                    <div class="tier-price" data-base-inr="250000" data-period="/yr /factory">
+                        <span class="currency">₹</span><span class="amount">2,50,000</span><span class="period">/yr
+                            /factory</span>
+                    </div>
+                </div>
+                <p class="tier-for">You share documents — we process and generate your CBAM reports from scratch.</p>
+                <ul class="feature-list">
+                    <li><strong>Everything in Self-Service - handled for you</strong></li>
+                    <li>Dedicated CBAM specialist</li>
+                    <li>Streamlined Data Intake: Invoices, Energy Bills, Records etc</li>
+                    <li>Expert Conversion of Evidence to Results</li>
+                    <li>Processing Evidence to Emissions</li>
+                    <li>Submission-ready CBAM reports delivered to you</li>
+                    <li>Audit ready, evidence-linked records</li>
+                    <li>Operational Load - Outsourced</li>
+                </ul>
+                <a href="https://encbam.encarbonsys.com/login#create-account" class="btn-pricing">Start Your Free
+                    Trial</a>
+            </div>
+
+            <!-- Model 03 -->
+            <div class="pricing-card featured">
+                <div class="badge-main">Recommended</div>
+                <div class="tier-meta">
+                    <span class="tier-id">Model 03</span>
+                    <h3 class="tier-title">Compliance as a Service (CaaS)</h3>
+                    <div class="tier-price" data-base-inr="475000" data-period="/yr /factory">
+                        <span class="currency">₹</span><span class="amount">4,75,000</span><span class="period">/yr
+                            /factory</span>
+                    </div>
+                </div>
+                <p class="tier-for">Complete delegation. We act as your technical CBAM partner across all EU
+                    obligations.</p>
+                <ul class="feature-list">
+                    <li><strong>Everything in managed reporting, plus</strong></li>
+                    <li>O3CI portal setup and management - complete delegation</li>
+                    <li>Monitoring plan development and upkeep</li>
+                    <li>Third-party verification coordination</li>
+                    <li>SEFA calculations & carbon price deduction support</li>
+                    <li>Regulatory Certainty from Day One</li>
+                </ul>
+                <a href="https://encbam.encarbonsys.com/login#create-account" class="btn-pricing">Start Your Free
+                    Trial</a>
+            </div>
+        </div>
+        <!-- MSME Notice -->
+        <div class="msme-notice animate-in">
+            * This pricing is for MSME. For <strong>Enterprise</strong>, <a href="mailto:contact@encarbonsys.com">Contact Us</a>
+        </div>
+
+        <!-- Capability Comparison Table -->
+        <div class="comparison-wrap">
+            <h2>Compare Our Support Models</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Capability</th>
+                            <th>Self-Service</th>
+                            <th>Managed</th>
+                            <th>CaaS Partner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Software Access (EnCBAM™)</td>
+                            <td><i class="fas fa-check check-icon"></i> Limited</td>
+                            <td><i class="fas fa-check check-icon"></i> Limited</td>
+                            <td><i class="fas fa-check check-icon"></i> Full</td>
+                        </tr>
+                        <tr>
+                            <td>Emissions Calculation</td>
+                            <td>You handle</td>
+                            <td><i class="fas fa-check check-icon"></i> We handle</td>
+                            <td><i class="fas fa-check check-icon"></i> We handle</td>
+                        </tr>
+                        <tr>
+                            <td>CBAM Report Generation</td>
+                            <td>You handle</td>
+                            <td><i class="fas fa-check check-icon"></i> We handle</td>
+                            <td><i class="fas fa-check check-icon"></i> We handle</td>
+                        </tr>
+                        <tr>
+                            <td>O3CI Portal Management</td>
+                            <td><i class="fas fa-minus minus-icon"></i></td>
+                            <td><i class="fas fa-minus minus-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i> Full Delegation</td>
+                        </tr>
+                        <tr>
+                            <td>Monitoring Plan Setup</td>
+                            <td><i class="fas fa-minus minus-icon"></i></td>
+                            <td>Expert Review</td>
+                            <td><i class="fas fa-check check-icon"></i> Fully Managed</td>
+                        </tr>
+                        <tr>
+                            <td>SEFA & Carbon Price Setup</td>
+                            <td><i class="fas fa-minus minus-icon"></i></td>
+                            <td><i class="fas fa-minus minus-icon"></i></td>
+                            <td><i class="fas fa-check check-icon"></i> Fully Managed</td>
+                        </tr>
+                        <tr>
+                            <td>Verification Support</td>
+                            <td>Software Only</td>
+                            <td>Audit Ready</td>
+                            <td>Full Co-ordination</td>
+                        </tr>
+                        <tr>
+                            <td>Internal Effort Required</td>
+                            <td style="color: #ffab00;">High</td>
+                            <td style="color: #0088ff;">Moderate</td>
+                            <td style="color: var(--leaf);">Minimal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- A-la-carte Add-ons -->
+        <div class="addon-section">
+            <div class="addon-grid">
+                <div>
+                    <span class="addon-tag">Flexible Support Scaling</span>
+                    <h2 class="addon-title">Additional Expert<br>Support Services</h2>
+                    <p style="color: var(--text-muted); font-size: 16px; font-weight: 300; margin-bottom: 32px;">
+                        Boost your Model 01 or 02 package with these expert-led add-ons.
+                    </p>
+                    <a href="EnCarbonSys_Services_Brochure-2026.html" class="cta-button secondary"
+                        style="display: inline-flex; align-items: center; gap: 10px; color: var(--leaf); text-decoration: none; border: 1px solid var(--leaf); padding: 12px 24px; border-radius: 8px;">
+                        <i class="fas fa-file-download"></i> Download Service Brochure
+                    </a>
+                </div>
+                <div>
+                    <div class="addon-item">
+                        <span class="addon-name">O3CI Portal Registration</span>
+                        <a href="https://wa.me/919620828005" class="addon-price" style="text-decoration:none;">Contact
+                            Us &#x2192;</a>
+                    </div>
+                    <div class="addon-item">
+                        <span class="addon-name">Monitoring Plan Development</span>
+                        <a href="https://wa.me/919620828005" class="addon-price" style="text-decoration:none;">Contact
+                            Us &#x2192;</a>
+                    </div>
+                    <div class="addon-item">
+                        <span class="addon-name">Verification Readiness Audit</span>
+                        <a href="https://wa.me/919620828005" class="addon-price" style="text-decoration:none;">Contact
+                            Us &#x2192;</a>
+                    </div>
+                    <div class="addon-item">
+                        <span class="addon-name">SEFA &amp; Carbon Price Logic</span>
+                        <a href="https://wa.me/919620828005" class="addon-price" style="text-decoration:none;">Contact
+                            Us &#x2192;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer
+        style="background: var(--glass-bg); border-top: 1px solid var(--glass-border); backdrop-filter: blur(20px); text-align: center; padding: 2rem 1.5rem; margin-top: 0.1rem;">
+        <p style="color: var(--mint); font-weight: 600; margin-bottom: 0.5rem;">
+            • EnCarbonSys © 2025 •
+        </p>
+        <p style="color: rgba(255, 255, 255, 0.7); font-size: 0.85rem; margin-bottom: 0.8rem;">
+            MSME Ready | Startup India Aligned | Privacy-First | contact@encarbonsys.com
+        </p>
+        <p style="margin-top: 0.8rem;">
+            <a href="/assets/pdf/terms-conditions.pdf"
+                style="color: var(--mint); font-size: 0.85rem; margin-right: 1rem; text-decoration: none;">
+                Terms & Conditions
+            </a>
+            <a href="/assets/pdf/privacy-policy.pdf"
+                style="color: var(--mint); font-size: 0.85rem; text-decoration: none;">
+                Privacy Policy
+            </a>
+        </p>
+    </footer>
+
+    <script>
+        // Regional pricing display based on user location
+        async function setRegionalPricing() {
+            try {
+                const geoRes = await fetch('https://ipapi.co/json/');
+                if (!geoRes.ok) throw new Error('Geo lookup failed');
+                const geo = await geoRes.json();
+
+                const userCurrency = (geo.currency || 'INR').toUpperCase();
+                const userCountry = (geo.country || 'IN').toUpperCase();
+
+                const specificCurrencies = {
+                    IN: 'INR', JP: 'JPY', NG: 'NGN', GB: 'GBP', AE: 'AED', CA: 'CAD', AU: 'AUD', SG: 'SGD', ZA: 'ZAR'
+                };
+
+                const europeanCountries = [
+                    'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
+                    'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
+                    'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'EU'
+                ];
+
+                let targetCurrency = 'USD';
+                if (specificCurrencies[userCountry]) {
+                    targetCurrency = specificCurrencies[userCountry];
+                } else if (europeanCountries.includes(userCountry)) {
+                    targetCurrency = 'EUR';
+                }
+
+                const fallbackRates = {
+                    INR: 1, USD: 0.012, EUR: 0.011, NGN: 15.84, GBP: 0.0097, AED: 0.044, CAD: 0.016, AUD: 0.018, SGD: 0.017, ZAR: 0.22, JPY: 1.8
+                };
+
+                const symbolMap = {
+                    INR: '₹', USD: '$', EUR: '€', NGN: '₦', GBP: '£', AED: 'د.إ', CAD: 'C$', AUD: 'A$', SGD: 'S$', ZAR: 'R', JPY: '¥'
+                };
+
+                let conversionRate = fallbackRates[targetCurrency] || 1;
+                const currencySymbol = symbolMap[targetCurrency] || '$';
+
+                document.querySelectorAll('.tier-price').forEach(card => {
+                    const baseInr = Number(card.dataset.baseInr || 0);
+                    if (!baseInr) return;
+
+                    const converted = baseInr * conversionRate;
+                    const amountEl = card.querySelector('.amount');
+                    const currencyEl = card.querySelector('.currency');
+
+                    if (currencyEl) currencyEl.textContent = currencySymbol;
+                    if (amountEl) {
+                        const locale = userCurrency === 'INR' ? 'en-IN' : 'en-US';
+                        amountEl.textContent = Number(converted).toLocaleString(locale, { maximumFractionDigits: 0 });
+                    }
+                });
+            } catch (err) {
+                console.warn('Regional pricing detection failed:', err);
+            }
+        }
+        document.addEventListener('DOMContentLoaded', setRegionalPricing);
+    </script>
+</body>
+
+</html>
