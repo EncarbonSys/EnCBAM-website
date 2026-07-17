@@ -6,6 +6,29 @@
   <title>Page Not Found | EnCBAM™</title>
   <link rel="canonical" href="https://encbam.com/">
   <link rel="icon" href="/assets/images/favicon.png" type="image/png">
+  <!-- Smart clean-URL router: try appending .html before showing 404 -->
+  <script>
+    (function () {
+      var path = window.location.pathname;
+      // Don't loop: only try .html if path doesn't already end in .html
+      if (!path.endsWith('.html') && !path.endsWith('/')) {
+        var attempt = path + '.html';
+        // Check if the .html version exists via a HEAD request
+        var xhr = new XMLHttpRequest();
+        xhr.open('HEAD', attempt, false);
+        try {
+          xhr.send();
+          if (xhr.status === 200) {
+            window.location.replace(attempt + window.location.hash);
+          }
+        } catch (e) {}
+      }
+      // Also handle /blog/* -> /blog/*.html
+      if (path.startsWith('/blog/') && !path.endsWith('/') && !path.endsWith('.html')) {
+        window.location.replace(path + '.html');
+      }
+    })();
+  </script>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -14,6 +37,9 @@
       font-family: 'Inter', sans-serif;
       min-height: 100vh; display: flex; align-items: center; justify-content: center;
       text-align: center; padding: 40px 20px;
+      background-image: linear-gradient(rgba(16,185,129,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16,185,129,.04) 1px, transparent 1px);
+      background-size: 48px 48px;
     }
     .wrap { max-width: 540px; }
     .code {
@@ -33,14 +59,23 @@
       transition: transform .3s, box-shadow .3s;
     }
     .btn:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(16,185,129,.3); }
+    .links { margin-top: 24px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+    .links a { color: #5a6070; font-size: .88rem; text-decoration: none; transition: color .2s; }
+    .links a:hover { color: #10b981; }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="code">404</div>
     <h1>Page Not Found</h1>
-    <p>The page you're looking for doesn't exist on EnCBAM™. It may have moved — check our homepage for all CBAM compliance resources.</p>
+    <p>The page you're looking for doesn't exist on EnCBAM™. It may have been moved or renamed — check the links below.</p>
     <a href="/" class="btn">Back to EnCBAM™ →</a>
+    <div class="links">
+      <a href="/blog/">CBAM Blog</a>
+      <a href="/#solution">Our Solution</a>
+      <a href="/#faq">FAQ</a>
+      <a href="/#cta">Get Started</a>
+    </div>
   </div>
 </body>
 </html>
