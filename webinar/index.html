@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBAM in Practice: From Monitoring Plans to Verification Readiness | EnCarbonSys & Applus+ Laboratories
+    </title>
+    <meta name="description"
+        content="A practical joint technical session on CBAM verification expectations, compliance workflows, and technology for service providers and installation operators. Co-hosted by EnCarbonSys and Applus+ Laboratories.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --cosmic-green: #00df81;
+            --cosmic-green-glow: rgba(0, 223, 129, 0.35);
+            --dark-cosmic: #0a1a0f;
+            --darker-cosmic: #050d08;
+            --card-bg: rgba(14, 28, 20, 0.75);
+            --card-border: rgba(0, 223, 129, 0.22);
+            --card-hover-border: rgba(0, 223, 129, 0.6);
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --applus-red: #ea1d25;
+            --applus-glow: rgba(234, 29, 37, 0.35);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--darker-cosmic);
+            background-image:
+                radial-gradient(circle at 10% 10%, rgba(0, 223, 129, 0.1) 0%, transparent 45%),
+                radial-gradient(circle at 90% 25%, rgba(234, 29, 37, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 75%, rgba(0, 223, 129, 0.07) 0%, transparent 55%);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1220px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* HEADER */
+        header {
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(14px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(5, 13, 8, 0.92);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-cluster {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .logo-img-encarbon {
+            height: 50.4px;
+            /* Increased by 20% from 42px */
+            width: auto;
+            object-fit: contain;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 0 10px rgba(0, 223, 129, 0.4));
+        }
+
+        .logo-link:hover .logo-img-encarbon {
+            transform: translateY(-1px) scale(1.02);
+            filter: drop-shadow(0 0 18px rgba(0, 223, 129, 0.8)) brightness(1.12);
+        }
+
+        .logo-img-applus {
+            height: 38.8px;
+            /* Decreased by 15% from 45.6px */
+            width: auto;
+            object-fit: contain;
+            display: block;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.22)) drop-shadow(0 0 14px rgba(255, 110, 0, 0.42));
+        }
+
+        .logo-link:hover .logo-img-applus {
+            transform: translateY(-1px) scale(1.02);
+            filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.45)) drop-shadow(0 0 20px rgba(255, 110, 0, 0.75)) brightness(1.12);
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .logo-fallback {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .logo-symbol {
+            width: 34px;
+            height: 34px;
+            background: rgba(0, 223, 129, 0.15);
+            border: 1.5px solid var(--cosmic-green);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--cosmic-green);
+            font-size: 16px;
+            box-shadow: 0 0 14px var(--cosmic-green-glow);
+        }
+
+        .brand-text-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 19px;
+            letter-spacing: -0.5px;
+            line-height: 1.1;
+            color: #fff;
+        }
+
+        .brand-sub {
+            font-size: 9px;
+            letter-spacing: 1.8px;
+            text-transform: uppercase;
+            color: var(--cosmic-green);
+            font-weight: 700;
+        }
+
+        .brand-divider {
+            color: rgba(255, 255, 255, 0.28);
+            font-size: 22px;
+            font-weight: 300;
+            margin: 0 4px;
+            user-select: none;
+        }
+
+        .logo-applus-fallback {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .applus-main {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: 21px;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            line-height: 1;
+        }
+
+        .applus-main span {
+            color: var(--applus-red);
+            font-size: 24px;
+            margin-left: 1px;
+        }
+
+        .applus-sub {
+            font-size: 8.5px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .badge-hero-rect {
+            background: rgba(0, 223, 129, 0.08);
+            border: 1px solid rgba(0, 223, 129, 0.35);
+            color: var(--cosmic-green);
+            padding: 6px 14px;
+            border-radius: 4px;
+            /* Crisp rectangular shape */
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            width: fit-content;
+        }
+
+        .pulse-indicator {
+            width: 8px;
+            height: 8px;
+            background: var(--cosmic-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--cosmic-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 223, 129, 0.7);
+            }
+
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 9px rgba(0, 223, 129, 0);
+            }
+
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 223, 129, 0);
+            }
+        }
+
+        /* HERO */
+        .hero {
+            padding: 44px 0 56px;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1.18fr 0.82fr;
+            gap: 52px;
+            align-items: stretch;
+        }
+
+        .hero-left-col {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .hero-intro-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 44px;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+
+        /* Decreased font size by 1 point per user feedback */
+        .hero-title .sub-title-accent {
+            display: block;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--cosmic-green);
+            margin-top: 6px;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-lead-desc {
+            font-size: 16.5px;
+            color: #cbd5e1;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .hero-sub-desc {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 0;
+            line-height: 1.6;
+        }
+
+        /* AUTO-DISTRIBUTED MIDDLE BLOCK (WHEN + TIMEZONE BANNER) */
+        .hero-middle-block {
+            margin: auto 0;
+            /* Auto-distributes equal vertical spacing above and below */
+            padding: 16px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* WHEN EYEBROW TITLE */
+        .hero-when-label {
+            font-size: 10px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--cosmic-green);
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* TIMEZONE BANNER: DATE (LEFT) | DIVIDER | BULLETS (RIGHT: IST & CET) */
+        .tz-banner {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 16px;
+            padding: 18px 24px;
+            margin-bottom: 0;
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        .tz-date-col {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            flex-shrink: 0;
+        }
+
+        .tz-date-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: rgba(0, 223, 129, 0.12);
+            color: var(--cosmic-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 223, 129, 0.25);
+        }
+
+        .tz-date-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tz-date-label {
+            font-size: 10px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--cosmic-green);
+            font-weight: 800;
+            margin-bottom: 2px;
+        }
+
+        .tz-date-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 15.5px;
+            font-weight: 800;
+            color: #ffffff;
+            white-space: nowrap;
+            letter-spacing: -0.2px;
+        }
+
+        .tz-v-divider {
+            width: 1px;
+            align-self: stretch;
+            background: rgba(255, 255, 255, 0.12);
+            flex-shrink: 0;
+        }
+
+        .tz-times-col {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .tz-times-label {
+            font-size: 9.5px;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .tz-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .tz-bullets li {
+            font-size: 13px;
+            color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .tz-bullet-dot {
+            color: var(--cosmic-green);
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        /* HERO AUDIENCE SECTION (WHO SHOULD ATTEND) */
+        .hero-audience-section {
+            margin-top: 0;
+            padding-top: 0;
+        }
+
+        .hero-audience-label {
+            font-size: 10px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--cosmic-green);
+            font-weight: 800;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-audience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+
+        .hero-audience-card {
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px 14px;
+            transition: all 0.25s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: 100%;
+        }
+
+        .hero-audience-card:hover {
+            border-color: var(--card-hover-border);
+            background: rgba(255, 255, 255, 0.045);
+            transform: translateY(-2px);
+        }
+
+        .h-aud-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            background: rgba(0, 223, 129, 0.1);
+            color: var(--cosmic-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+            border: 1px solid rgba(0, 223, 129, 0.2);
+        }
+
+        .h-aud-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #f8fafc;
+            line-height: 1.3;
+        }
+
+        .h-aud-desc {
+            font-size: 11.5px;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        /* REGISTRATION CARD (REMOVED COMPLIMENTARY REGISTRATION BADGE) */
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 34px 30px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.55), 0 0 45px rgba(0, 223, 129, 0.08);
+            position: sticky;
+            top: 96px;
+        }
+
+        .form-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .form-subtitle {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.45;
+        }
+
+        .form-group {
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #cbd5e1;
+            margin-bottom: 5px;
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            background: rgba(5, 13, 8, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 10px;
+            padding: 11px 14px;
+            font-size: 13.5px;
+            color: #fff;
+            outline: none;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--cosmic-green);
+            box-shadow: 0 0 12px var(--cosmic-green-glow);
+            background: rgba(5, 13, 8, 0.95);
+        }
+
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+        .form-select option,
+        .form-select optgroup {
+            background: #0f172a;
+            color: #fff;
+        }
+
+        .form-select optgroup {
+            color: #00df81;
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00df81 0%, #059669 100%);
+            border: none;
+            color: #050d08;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 16px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px var(--cosmic-green-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(0, 223, 129, 0.5);
+            background: linear-gradient(135deg, #0ce98b 0%, #059669 100%);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.75;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .form-footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            line-height: 1.4;
+        }
+
+        /* SUCCESS MESSAGE */
+        .success-box {
+            display: none;
+            background: rgba(0, 223, 129, 0.1);
+            border: 1px solid var(--cosmic-green);
+            border-radius: 16px;
+            padding: 28px 22px;
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .success-icon {
+            width: 52px;
+            height: 52px;
+            background: var(--cosmic-green);
+            color: var(--dark-cosmic);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 16px;
+            box-shadow: 0 0 24px var(--cosmic-green);
+        }
+
+        .success-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 22px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .success-text {
+            font-size: 14px;
+            color: #cbd5e1;
+            line-height: 1.55;
+            margin-bottom: 18px;
+        }
+
+        .success-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px dashed rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 12.5px;
+            color: var(--cosmic-green);
+            font-weight: 600;
+        }
+
+        /* AUDIENCE SECTION */
+        .section {
+            padding: 60px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 44px;
+        }
+
+        .section-badge {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--cosmic-green);
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 34px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.6px;
+        }
+
+        .section-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .audience-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .audience-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .audience-card:hover {
+            border-color: var(--card-hover-border);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .audience-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: rgba(0, 223, 129, 0.1);
+            color: var(--cosmic-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(0, 223, 129, 0.2);
+        }
+
+        .audience-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .audience-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* COMPACT SESSION SECTION (AGENDA & FEATURED SPEAKERS) */
+        .compact-session-section {
+            padding: 44px 0 52px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+        }
+
+        .compact-header {
+            text-align: center;
+            max-width: 720px;
+            margin: 0 auto 28px;
+        }
+
+        .compact-header .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -0.5px;
+        }
+
+        .compact-header .section-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 6px;
+        }
+
+        /* SLIM STACKED AGENDA (OPTION 2) */
+        .agenda-wrap {
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .agenda-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            padding: 16px 22px;
+            transition: all 0.25s ease;
+        }
+
+        .agenda-block:hover {
+            border-color: rgba(0, 223, 129, 0.4);
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .agenda-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 6px;
+        }
+
+        .agenda-time-chip {
+            background: rgba(0, 223, 129, 0.12);
+            color: var(--cosmic-green);
+            border: 1px solid rgba(0, 223, 129, 0.3);
+            font-family: 'Outfit', sans-serif;
+            font-size: 11.5px;
+            font-weight: 800;
+            padding: 2px 10px;
+            border-radius: 6px;
+            letter-spacing: 0.4px;
+        }
+
+        .agenda-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 6px;
+            line-height: 1.35;
+        }
+
+        .agenda-bullets {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .agenda-bullets li {
+            font-size: 13px;
+            color: #94a3b8;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.45;
+        }
+
+        .agenda-bullet-dot {
+            color: var(--cosmic-green);
+            font-size: 14px;
+            line-height: 1.3;
+            flex-shrink: 0;
+        }
+
+        /* FEATURED SPEAKERS (COMPACT BELOW AGENDA) */
+        .agenda-speakers-wrap {
+            max-width: 900px;
+            margin: 28px auto 0;
+            padding-top: 22px;
+            border-top: 1px dashed rgba(255, 255, 255, 0.1);
+        }
+
+        .agenda-speakers-label {
+            font-size: 10.5px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: var(--cosmic-green);
+            font-weight: 800;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .compact-speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .compact-speaker-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.25s ease;
+        }
+
+        .compact-speaker-card:hover {
+            border-color: var(--card-hover-border);
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateY(-2px);
+        }
+
+        .compact-speaker-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0, 223, 129, 0.2) 0%, rgba(5, 150, 105, 0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: #fff;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .compact-speaker-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .speaker-tag {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .compact-speaker-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1.25;
+        }
+
+        .compact-speaker-role {
+            font-size: 12px;
+            color: #cbd5e1;
+            line-height: 1.35;
+        }
+
+        .compact-speaker-org {
+            font-size: 11.5px;
+            color: var(--text-muted);
+        }
+
+        /* KEY TAKEAWAYS STRIP */
+        .takeaways-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 950px;
+            margin: 0 auto;
+        }
+
+        .takeaway-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        .takeaway-item i {
+            color: var(--cosmic-green);
+            font-size: 16px;
+            margin-top: 3px;
+        }
+
+        /* FOOTER */
+        footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 36px 0;
+            text-align: center;
+            font-size: 13px;
+            color: #64748b;
+        }
+
+        footer a {
+            color: var(--cosmic-green);
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 960px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .audience-grid,
+            .speakers-grid,
+            .compact-speakers-grid,
+            .takeaways-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-title .sub-title-accent {
+                font-size: 26px;
+            }
+
+            .focus-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .form-card {
+                position: static;
+            }
+
+            .tz-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 16px;
+            }
+
+            .tz-v-divider {
+                width: 100%;
+                height: 1px;
+                align-self: auto;
+            }
+
+            .hero-audience-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .logo-img-encarbon {
+                height: 42px;
+            }
+
+            .logo-img-applus {
+                height: 31.5px;
+            }
+
+            .brand-cluster {
+                gap: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- STICKY NAVBAR -->
+    <header>
+        <div class="container nav-content">
+            <div class="brand-cluster">
+                <!-- EnCarbonSys Logo (+10% scaled, hover glow effects) -->
+                <a href="https://encarbonsys.com" class="logo-link" target="_blank" title="EnCarbonSys">
+                    <img src="assets/encarbonsys-logo.png" alt="EnCarbonSys" class="logo-img-encarbon"
+                        onerror="this.style.display='none'; document.getElementById('fallback-encarbon').style.display='flex';">
+                    <div id="fallback-encarbon" style="display:none; align-items:center; gap:10px;">
+                        <div class="logo-symbol">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="brand-text-wrap">
+                            <span class="brand-name">ENCARBONSYS</span>
+                            <span class="brand-sub">ENERGY • CARBON • SYSTEMS</span>
+                        </div>
+                    </div>
+                </a>
+
+                <span class="brand-divider">×</span>
+
+                <!-- Applus+ Laboratories Logo (+50% scaled, hover glow effects) -->
+                <a href="https://www.appluslaboratories.com" class="logo-link" target="_blank"
+                    title="Applus+ Laboratories">
+                    <img src="assets/applus-logo.png" alt="Applus+ Laboratories" class="logo-img-applus"
+                        onerror="this.style.display='none'; document.getElementById('fallback-applus').style.display='flex';">
+                    <div id="fallback-applus" style="display:none; flex-direction:column;">
+                        <span class="applus-main">Applus<span>+</span></span>
+                        <span class="applus-sub">laboratories</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+
+                <!-- LEFT MAIN COLUMN -->
+                <div class="hero-left-col">
+                    <div class="hero-intro-block">
+                        <!-- Rectangular Joint Technical Webinar Badge -->
+                        <div class="badge-hero-rect">
+                            <span class="pulse-indicator"></span>
+                            <span>Joint Technical Webinar on</span>
+                        </div>
+
+                        <!-- Title with decreased subtitle font size per feedback -->
+                        <h1 class="hero-title">
+                            CBAM in Practice:
+                            <span class="sub-title-accent">From Monitoring Plan to Verification Readiness</span>
+                        </h1>
+
+                        <div class="hero-lead-desc">
+                            A practical session on CBAM verification expectations, compliance workflows, and technology
+                            for service providers and installation operators.
+                        </div>
+
+                        <div class="hero-sub-desc">
+                            Gain clarity on what verifiers look for, required data dossiers, and how structured
+                            technology enables verification readiness.
+                        </div>
+                    </div>
+
+                    <!-- AUTO-DISTRIBUTED MIDDLE BLOCK (WHEN & TIMEZONE BANNER) -->
+                    <div class="hero-middle-block">
+                        <!-- WHEN TITLE -->
+                        <div class="hero-when-label">
+                            <i class="far fa-calendar-alt" style="font-size: 11px;"></i>
+                            <span>WHEN</span>
+                        </div>
+
+                        <!-- TIMEZONE BANNER: DATE (LEFT) | DIVIDER | BULLETS (RIGHT: IST & CET) -->
+                        <div class="tz-banner">
+                            <div class="tz-date-col">
+                                <div class="tz-date-icon">
+                                    <i class="far fa-calendar-alt"></i>
+                                </div>
+                                <div class="tz-date-info">
+                                    <span class="tz-date-label">LIVE BROADCAST • 90 MIN</span>
+                                    <span class="tz-date-val">Thursday, 10 December 2026</span>
+                                </div>
+                            </div>
+
+                            <div class="tz-v-divider"></div>
+
+                            <div class="tz-times-col">
+                                <div class="tz-times-label">BROADCAST TIMES</div>
+                                <ul class="tz-bullets">
+                                    <li><span class="tz-bullet-dot">•</span> <strong>4:00 PM – 5:30 PM IST</strong></li>
+                                    <li><span class="tz-bullet-dot">•</span> <strong>11:30 AM – 1:00 PM CET</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- WHO SHOULD ATTEND (HERO OPTION A: 3-COLUMN CARDS) -->
+                    <div class="hero-audience-section">
+                        <div class="hero-audience-label">
+                            <i class="fas fa-bullseye" style="font-size: 11px;"></i>
+                            <span>WHO SHOULD ATTEND</span>
+                        </div>
+                        <div class="hero-audience-grid">
+                            <div class="hero-audience-card">
+                                <div class="h-aud-icon"><i class="fas fa-users-cog"></i></div>
+                                <div class="h-aud-title">CBAM Consultancies & Service Providers</div>
+                                <div class="h-aud-desc">Advisory firms scaling client compliance & monitoring plan
+                                    workflows.</div>
+                            </div>
+                            <div class="hero-audience-card">
+                                <div class="h-aud-icon"><i class="fas fa-user-tie"></i></div>
+                                <div class="h-aud-title">Independent Consultants & Specialists</div>
+                                <div class="h-aud-desc">GHG accounting experts mastering verifier expectations &
+                                    calculation models.</div>
+                            </div>
+                            <div class="hero-audience-card">
+                                <div class="h-aud-icon"><i class="fas fa-industry"></i></div>
+                                <div class="h-aud-title">Exporters & Plant Installation Operators</div>
+                                <div class="h-aud-desc">Industrial compliance & sustainability teams preparing for EU
+                                    CBAM.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT REGISTRATION FORM CARD (REMOVED COMPLIMENTARY REGISTRATION BADGE) -->
+                <div>
+                    <div class="form-card" id="form-container">
+                        <h2 class="form-title">Reserve Your Seat</h2>
+                        <p class="form-subtitle">Limited attendee capacity. Complete the form to secure your live
+                            access.</p>
+
+                        <form id="webinarForm">
+                            <div class="form-group">
+                                <label for="fullName">Full Name *</label>
+                                <input type="text" id="fullName" class="form-input"
+                                    placeholder="e.g. Carla Rodriguez / Rajesh Kumar" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Work Email *</label>
+                                <input type="email" id="email" class="form-input" placeholder="name@company.com"
+                                    required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone">Phone / WhatsApp <span
+                                        style="font-size: 11px; color: #94a3b8; font-weight: normal; margin-left: 4px;"></span></label>
+                                <input type="tel" id="phone" class="form-input"
+                                    placeholder="+34 600 000 000 or +91 98765 43210">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="company">Company / Organization *</label>
+                                <input type="text" id="company" class="form-input"
+                                    placeholder="e.g. Green Advisory / Tata Steel / Self" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="jobTitle">Job Title / Designation *</label>
+                                <input type="text" id="jobTitle" class="form-input"
+                                    placeholder="e.g. Senior CBAM Consultant / ESG Lead" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="orgType">Organization Type *</label>
+                                <select id="orgType" class="form-select" required>
+                                    <option value="" disabled selected>Select your profile</option>
+                                    <option value="CBAM Consultancy / Service Provider">CBAM Consultancy / Service
+                                        Provider</option>
+                                    <option value="Independent Consultant / Professional">Independent Consultant /
+                                        Professional</option>
+                                    <option value="Exporters & Plant Installation Operators">Exporters & Plant
+                                        Installation Operators</option>
+                                    <option value="Trade, Legal & Customs Advisory">Trade, Legal & Customs Advisory
+                                    </option>
+                                    <option value="Other">Other Stakeholder</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="sector">Primary Sector Focus *</label>
+                                <select id="sector" class="form-select" required>
+                                    <option value="" disabled selected>Select primary sector</option>
+                                    <option value="Iron & Steel">Iron & Steel</option>
+                                    <option value="Aluminium">Aluminium</option>
+                                    <option value="Cement">Cement</option>
+                                    <option value="Fertilizers">Fertilizers</option>
+                                    <option value="Electricity / Hydrogen">Electricity / Hydrogen</option>
+                                    <option value="Multi-Sector Advisory">Multi-Sector Advisory</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="country">Country *</label>
+                                <input type="text" id="country" list="countryList" class="form-input"
+                                    placeholder="Type to search your country (e.g. Spain, India, Germany...)" required autocomplete="off">
+                                <datalist id="countryList">
+                                    <option value="Afghanistan">
+                                    <option value="Albania">
+                                    <option value="Algeria">
+                                    <option value="Argentina">
+                                    <option value="Armenia">
+                                    <option value="Australia">
+                                    <option value="Austria">
+                                    <option value="Azerbaijan">
+                                    <option value="Bahrain">
+                                    <option value="Bangladesh">
+                                    <option value="Belgium">
+                                    <option value="Bosnia and Herzegovina">
+                                    <option value="Brazil">
+                                    <option value="Bulgaria">
+                                    <option value="Canada">
+                                    <option value="Chile">
+                                    <option value="China">
+                                    <option value="Colombia">
+                                    <option value="Croatia">
+                                    <option value="Cyprus">
+                                    <option value="Czech Republic">
+                                    <option value="Denmark">
+                                    <option value="Egypt">
+                                    <option value="Estonia">
+                                    <option value="Finland">
+                                    <option value="France">
+                                    <option value="Georgia">
+                                    <option value="Germany">
+                                    <option value="Ghana">
+                                    <option value="Greece">
+                                    <option value="Hungary">
+                                    <option value="Iceland">
+                                    <option value="India">
+                                    <option value="Indonesia">
+                                    <option value="Ireland">
+                                    <option value="Israel">
+                                    <option value="Italy">
+                                    <option value="Japan">
+                                    <option value="Jordan">
+                                    <option value="Kazakhstan">
+                                    <option value="Kenya">
+                                    <option value="Kuwait">
+                                    <option value="Latvia">
+                                    <option value="Lithuania">
+                                    <option value="Luxembourg">
+                                    <option value="Malaysia">
+                                    <option value="Mexico">
+                                    <option value="Morocco">
+                                    <option value="Mozambique">
+                                    <option value="Netherlands">
+                                    <option value="New Zealand">
+                                    <option value="Nigeria">
+                                    <option value="North Macedonia">
+                                    <option value="Norway">
+                                    <option value="Oman">
+                                    <option value="Pakistan">
+                                    <option value="Peru">
+                                    <option value="Philippines">
+                                    <option value="Poland">
+                                    <option value="Portugal">
+                                    <option value="Qatar">
+                                    <option value="Romania">
+                                    <option value="Saudi Arabia">
+                                    <option value="Serbia">
+                                    <option value="Singapore">
+                                    <option value="Slovakia">
+                                    <option value="Slovenia">
+                                    <option value="South Africa">
+                                    <option value="South Korea">
+                                    <option value="Spain">
+                                    <option value="Sweden">
+                                    <option value="Switzerland">
+                                    <option value="Taiwan">
+                                    <option value="Thailand">
+                                    <option value="Tunisia">
+                                    <option value="Turkey">
+                                    <option value="Ukraine">
+                                    <option value="United Arab Emirates">
+                                    <option value="United Kingdom">
+                                    <option value="United States">
+                                    <option value="Vietnam">
+                                </datalist>
+                            </div>
+
+                            <button type="submit" class="submit-btn" id="submitBtn">
+                                <span>Complete Registration</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+
+                            <div class="form-footer-note">
+                                <i class="fas fa-shield-alt" style="color: var(--cosmic-green);"></i>
+                                <span>A confirmation email will be sent immediately upon registration.</span>
+                            </div>
+                        </form>
+
+                        <!-- SUCCESS CONFIRMATION STATE -->
+                        <div class="success-box" id="successBox">
+                            <div class="success-icon">
+                                <i class="fas fa-check"></i>
+                            </div>
+                            <h3 class="success-title">Seat Reserved!</h3>
+                            <p class="success-text">
+                                Thank you for registering. A confirmation has been sent to your email. Your official webinar access link and calendar invitation will be delivered to your inbox on <strong>December 1, 2026</strong>.
+                            </p>
+                            <div class="success-badge">
+                                <i class="far fa-envelope"></i> Confirmation email dispatched
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- AGENDA & FEATURED SPEAKERS (COMBINED COMPACT SECTION) -->
+    <section class="section compact-session-section">
+        <div class="container">
+            <div class="section-header compact-header">
+                <h2 class="section-title">Agenda (90 Minutes)</h2>
+                <p class="section-desc">Four focused segments covering monitoring plans, verifier expectations, and
+                    compliance workflows.</p>
+            </div>
+
+            <!-- SLIM STACKED AGENDA LIST (OPTION 2) -->
+            <div class="agenda-wrap">
+
+                <!-- PART 1 -->
+                <div class="agenda-block">
+                    <div class="agenda-top">
+                        <div class="agenda-time-chip">Part 1 • 10 Minutes</div>
+                    </div>
+                    <div class="agenda-title">Introduction: CBAM Compliance & Structured Preparation</div>
+                    <ul class="agenda-bullets">
+                        <li><span class="agenda-bullet-dot">•</span> Current regulatory context</li>
+                        <li><span class="agenda-bullet-dot">•</span> Importance of a structured CBAM platform</li>    
+                    </ul>
+                </div>
+
+                <!-- PART 2 -->
+                <div class="agenda-block" style="border-left: 3px solid var(--applus-red);">
+                    <div class="agenda-top">
+                        <div class="agenda-time-chip"
+                            style="background: rgba(234, 29, 37, 0.15); color: #fca5a5; border-color: rgba(234, 29, 37, 0.35);">
+                            Part 2 • 35 Minutes</div>
+                    </div>
+                    <div class="agenda-title">What Should an Operator Have Prepared Before Verification?</div>
+                    <ul class="agenda-bullets">
+                        <li><span class="agenda-bullet-dot">•</span> The CBAM verification process: Verification stages
+                            and the expected timeline.</li>
+                        <li><span class="agenda-bullet-dot">•</span> Essential Monitoring Plan requirements: mandatory
+                            content, definition of the installation and production-process boundaries, and the auditor
+                            main expectations.</li>
+                        <li><span class="agenda-bullet-dot">•</span> Required operational evidence, common findings and
+                            lessons learned.</li>
+                    </ul>
+                </div>
+
+                <!-- PART 3 -->
+                <div class="agenda-block">
+                    <div class="agenda-top">
+                        <div class="agenda-time-chip">Part 3 • 35 Minutes</div>
+                    </div>
+                    <div class="agenda-title">How EnCBAM Supports Verification Readiness</div>
+                    <ul class="agenda-bullets">
+                        <li><span class="agenda-bullet-dot">•</span> Live technology demonstration: facility setup,
+                            Monitoring Plan generation, and workflow review.</li>
+                        <li><span class="agenda-bullet-dot">•</span> Operational data traceability: linking source
+                            streams, precursor emission factors, and meters.</li>
+                        <li><span class="agenda-bullet-dot">•</span> Collaborative verifier workflow, inline issue
+                            resolution, and exporting the verification dossier.</li>
+                    </ul>
+                </div>
+
+                <!-- PART 4 -->
+                <div class="agenda-block">
+                    <div class="agenda-top">
+                        <div class="agenda-time-chip">Part 4 • 10 Minutes</div>
+                    </div>
+                    <div class="agenda-title">Live Technical Q&A</div>
+                    <ul class="agenda-bullets">
+                        <li><span class="agenda-bullet-dot">•</span> Open floor: Ask specific technical questions
+                            directly to verification experts and software leads.</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- FEATURED SPEAKERS (COMPACT BELOW AGENDA) -->
+            <div class="agenda-speakers-wrap">
+                <div class="agenda-speakers-label">
+                    <i class="fas fa-microphone-alt" style="font-size: 11px;"></i>
+                    <span>FEATURED SPEAKERS</span>
+                </div>
+                <div class="compact-speakers-grid">
+
+                    <!-- SPEAKER 1: APPLUS -->
+                    <div class="compact-speaker-card">
+                        <div class="compact-speaker-avatar"
+                            style="background: linear-gradient(135deg, rgba(234, 29, 37, 0.25) 0%, rgba(0, 223, 129, 0.15) 100%);">
+                            <i class="fas fa-user-shield"></i>
+                        </div>
+                        <div class="compact-speaker-info">
+                            <div class="speaker-tag" style="color: var(--applus-red);">Verifier Expertise</div>
+                            <div class="compact-speaker-name">Carla Debat Mollevi</div>
+                            <div class="compact-speaker-role">Director – Sustainability Services</div>
+                            <div class="compact-speaker-org">LGAI Laboratories (Applus+ Certification)</div>
+                        </div>
+                    </div>
+
+                    <!-- SPEAKER 2: ENCARBONSYS -->
+                    <div class="compact-speaker-card">
+                        <div class="compact-speaker-avatar">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <div class="compact-speaker-info">
+                            <div class="speaker-tag" style="color: var(--cosmic-green);">Technology & Workflow</div>
+                            <div class="compact-speaker-name">Bibi Ayesha</div>
+                            <div class="compact-speaker-role">Co-founder and Director</div>
+                            <div class="compact-speaker-org">EnCarbonSys (EnCBAM)</div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <p>© 2026 EnCarbonSys (EnCBAM). All rights reserved.</p>
+            <p style="margin-top: 8px;">
+                Questions? Contact <a href="mailto:contact@encarbonsys.com">contact@encarbonsys.com</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- LOGIC: COUNTDOWN & GOOGLE SHEETS FORM DISPATCH -->
+    <script>
+        // TARGET DATE: DEC 10, 2026, 11:30:00 CET (11:30 AM Spain Time)
+        const targetDate = new Date("December 10, 2026 11:30:00 GMT+0100").getTime();
+
+        function updateCountdown() {
+            if (!document.getElementById("cd-days")) return;
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                document.getElementById("cd-days").innerText = "00";
+                document.getElementById("cd-hours").innerText = "00";
+                document.getElementById("cd-mins").innerText = "00";
+                document.getElementById("cd-secs").innerText = "00";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("cd-days").innerText = String(days).padStart(2, '0');
+            document.getElementById("cd-hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("cd-mins").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("cd-secs").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // GOOGLE APPS SCRIPT WEBHOOK URL
+        const GOOGLE_SCRIPT_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbwkAQR0aTFM0weY4l4LN0rF6SZ2VtjLveTIVjP-CL7P8qss6tla0nVk3ifEDGTY7zHqgw/exec";
+
+        const form = document.getElementById('webinarForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successBox = document.getElementById('successBox');
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const payload = {
+                fullName: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone') ? document.getElementById('phone').value.trim() : '',
+                company: document.getElementById('company').value.trim(),
+                jobTitle: document.getElementById('jobTitle').value.trim(),
+                orgType: document.getElementById('orgType').value,
+                sector: document.getElementById('sector').value,
+                country: document.getElementById('country').value.trim(),
+                registeredAt: new Date().toISOString()
+            };
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Reserving Seat...';
+
+            if (GOOGLE_SCRIPT_WEBHOOK_URL && GOOGLE_SCRIPT_WEBHOOK_URL.startsWith("http")) {
+                try {
+                    await fetch(GOOGLE_SCRIPT_WEBHOOK_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+                        body: JSON.stringify(payload)
+                    });
+                } catch (err) {
+                    console.warn("Webhook dispatch error:", err);
+                }
+            } else {
+                console.log("Registered attendee payload:", payload);
+                const localStore = JSON.parse(localStorage.getItem('encbam_webinar_registrations') || '[]');
+                localStore.push(payload);
+                localStorage.setItem('encbam_webinar_registrations', JSON.stringify(localStore));
+            }
+
+            setTimeout(() => {
+                form.style.display = 'none';
+                successBox.style.display = 'block';
+            }, 600);
+        });
+    </script>
+</body>
+
+</html>
